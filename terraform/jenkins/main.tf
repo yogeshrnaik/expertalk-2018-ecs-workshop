@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     bucket         = "ecs-workshop-terraform-state-jenkins"
-    key            = "${unique}-jenkins.tfstate"
+    key            = "yogesh-jenkins.tfstate"
     region         = "us-east-1"
     encrypt        = true
     dynamodb_table = "Terraform-Lock-Table"
@@ -45,7 +45,7 @@ locals {
 }
 
 module "alb" {
-  source                      = "../../terraform-modules/application-load-balancer"
+  source                      = "git@github.com:yogeshrnaik/expertalk-2018-ecs-workshop.git//terraform-modules/application-load-balancer"
   vpc_id                      = "${data.aws_vpc.dev_vpc.id}"
   name                        = "${local.unique}-jenkins-alb"
   alb_access_cidr_blocks      = ["0.0.0.0/0"]
